@@ -11,7 +11,7 @@ function SearchBar(props) {
   };
 
   return (
-    <div className="fade-in step-0">
+    <div className="fade-in step-0" style={{width:'100%'}}>
       <h3>Search</h3>
       <form>
         <input type="text" ref={textInput} />

@@ -37,6 +37,21 @@ function App() {
       });
   };
 
+  const onSearch = (str) => {
+    console.log(str);
+    //alternateNames/search/findByNameLike?name=11%20Co%25
+    
+    axios
+      .get(apiUrl + 'alternateNames/search/findByNameLike?name=11%20Co%25')
+      .then((response) => {
+        //setPlanetData(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     getInitialData();
   }, []);
@@ -51,7 +66,7 @@ function App() {
         <div className="stars"></div>
       </div>
       <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={onSearch} />
         <StarSystem starData={starData} getDetail={getDetail} />
         <StarSystemDetail planetData={planetData} />
       </div>

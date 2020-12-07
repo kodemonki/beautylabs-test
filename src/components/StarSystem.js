@@ -5,7 +5,7 @@ import "../css/App.css";
 function StarSystem(props) {
 
   return (
-    <div className="fade-in step-0">
+    <div className="fade-in step-0" style={{width:'100%'}}>
 
 
       <h3>Star Systems</h3>
