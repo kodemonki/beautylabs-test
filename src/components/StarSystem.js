@@ -18,7 +18,9 @@ function StarSystem(props) {
       {props.starData !== null && (
         <>
           <div>
-            <span><b>Min planets</b></span>
+            <span>
+              <b>Min planets</b>
+            </span>
             <br />
             <input type="text" ref={textInput} onChange={updateFilter} />
             <br />
@@ -40,12 +42,12 @@ function StarSystem(props) {
             </thead>
 
             {props.starData._embedded.stars.map((item, index) => (
-              <>
+              <React.Fragment key={"ss" + index}>
                 {item.numberOfPlanets >= minPlanets && (
-                  <tbody key={"ss" + index}>
+                  <tbody>
                     <tr>
                       <td>{item.name}</td>
-                      <td>{item.distance}</td>
+                      <td>{item.distance} Light Years</td>
                       <td>{item.numberOfPlanets}</td>
                       <td>
                         <button
@@ -59,7 +61,7 @@ function StarSystem(props) {
                     </tr>
                   </tbody>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </table>
         </>

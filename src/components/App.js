@@ -10,6 +10,7 @@ import "../css/App.css";
 function App() {
   const [starData, setStarData] = useState(null);
   const [starPage, setStarPage] = useState(0);
+  const [searchData, setSearchData] = useState(null);
 
   const [planetData, setPlanetData] = useState(null);
 
@@ -19,7 +20,7 @@ function App() {
 
   const getInitialData = () => {
     axios
-      .get(apiUrl + "stars?page=" + starPage)
+      .get(apiUrl + "stars?sort=numberOfPlanets,desc&page=" + starPage)
       .then((response) => {
         setStarData(response.data);
       })
@@ -40,14 +41,10 @@ function App() {
   };
 
   const onSearch = (str) => {
-    console.log(str);
-    //alternateNames/search/findByNameLike?name=11%20Co%25
-
     axios
-      .get(apiUrl + "alternateNames/search/findByNameLike?name=11%20Co%25")
+      .get(apiUrl + "alternateNames/search/findByNameLike?name=" + str + "%25")
       .then((response) => {
-        //setPlanetData(response.data);
-        console.log(response.data);
+        setSearchData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -83,7 +80,10 @@ function App() {
         <div className="stars"></div>
       </div>
       <div className="App">
-        <SearchBar onSearch={onSearch} />
+        <SearchBar
+          onSearch={onSearch}
+          searchData={searchData}
+        />
         <StarSystem
           starData={starData}
           getDetail={getDetail}

@@ -45,7 +45,7 @@ function StarSystemDetail(props) {
                   <td>{item.discoveryMethod}</td>
                   <td>{item.list}</td>
                   <td>{item.mass}</td>
-                  <td>{item.radius}</td>
+                  <td>{item.radius} Kilometres</td>
                   <td>{item.temperature}</td>
                   <td>{item.age}</td>
                 </tr>
