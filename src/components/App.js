@@ -70,8 +70,8 @@ function App() {
 
   const prevPage = () => {
     let target = starPage - 1;
-    if (target < 0) {
-      target = 0;
+    if (target < 1) {
+      target = 1;
     }
     setStarPage(target);
     getInitialData();
