@@ -11,7 +11,7 @@ function StarSystem(props) {
   };
   return (
     <div className="fade-in step-0" style={{ width: "100%" }}>
-      <h3>Star Systems</h3>
+      <h3>All Star Systems</h3>
 
       {props.starData === null && <h3>Loading</h3>}
 

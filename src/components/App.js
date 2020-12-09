@@ -8,6 +8,8 @@ import SearchBar from "./SearchBar";
 import "../css/App.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [starData, setStarData] = useState(null);
   const [starPage, setStarPage] = useState(0);
   const [searchData, setSearchData] = useState(null);
@@ -19,36 +21,51 @@ function App() {
     prefix + "http://webdevelopertest.playfusionservices.com/webapptest/";
 
   const getInitialData = () => {
+    setIsLoading(true);
     axios
       .get(apiUrl + "stars?sort=numberOfPlanets,desc&page=" + starPage)
       .then((response) => {
         setStarData(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   };
 
   const getDetail = (item) => {
+    setIsLoading(true);
     axios
       .get(prefix + item._links.planets.href)
       .then((response) => {
         setPlanetData(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   };
 
   const onSearch = (str) => {
-    axios
-      .get(apiUrl + "alternateNames/search/findByNameLike?name=" + str + "%25")
-      .then((response) => {
-        setSearchData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (str === "") {
+      setSearchData(null);
+    } else {
+      setIsLoading(true);
+      axios
+        .get(
+          apiUrl + "alternateNames/search/findByNameLike?name=%25" + str + "%25"
+        )
+        .then((response) => {
+          setSearchData(response.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
   };
 
   const prevPage = () => {
@@ -80,10 +97,7 @@ function App() {
         <div className="stars"></div>
       </div>
       <div className="App">
-        <SearchBar
-          onSearch={onSearch}
-          searchData={searchData}
-        />
+        <SearchBar onSearch={onSearch} searchData={searchData} />
         <StarSystem
           starData={starData}
           getDetail={getDetail}
@@ -91,6 +105,14 @@ function App() {
           prevPage={prevPage}
         />
         <StarSystemDetail planetData={planetData} />
+      </div>
+      <div
+        className="LoadingBlocker"
+        style={{ display: isLoading === true ? "block" : "none" }}
+      >
+        <div className="LoadingSpinner">
+          <div className="LoadingSpinner__inner"></div>
+        </div>
       </div>
     </div>
   );
