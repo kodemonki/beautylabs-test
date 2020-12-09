@@ -9,6 +9,8 @@ import "../css/App.css";
 
 function App() {
   const [starData, setStarData] = useState(null);
+  const [starPage, setStarPage] = useState(0);
+
   const [planetData, setPlanetData] = useState(null);
 
   const prefix = "http://cors-anywhere.herokuapp.com/";
@@ -17,7 +19,7 @@ function App() {
 
   const getInitialData = () => {
     axios
-      .get(apiUrl + "stars")
+      .get(apiUrl + "stars?page=" + starPage)
       .then((response) => {
         setStarData(response.data);
       })
@@ -40,16 +42,31 @@ function App() {
   const onSearch = (str) => {
     console.log(str);
     //alternateNames/search/findByNameLike?name=11%20Co%25
-    
+
     axios
-      .get(apiUrl + 'alternateNames/search/findByNameLike?name=11%20Co%25')
+      .get(apiUrl + "alternateNames/search/findByNameLike?name=11%20Co%25")
       .then((response) => {
         //setPlanetData(response.data);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const prevPage = () => {
+    let target = starPage - 1;
+    if (target < 0) {
+      target = 0;
+    }
+    setStarPage(target);
+    getInitialData();
+  };
+
+  const nextPage = () => {
+    let target = starPage + 1;
+    setStarPage(target);
+    getInitialData();
   };
 
   useEffect(() => {
@@ -67,7 +84,12 @@ function App() {
       </div>
       <div className="App">
         <SearchBar onSearch={onSearch} />
-        <StarSystem starData={starData} getDetail={getDetail} />
+        <StarSystem
+          starData={starData}
+          getDetail={getDetail}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
         <StarSystemDetail planetData={planetData} />
       </div>
     </div>
