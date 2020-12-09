@@ -1,3 +1,14 @@
+# running locally
+1. clone this repo
+2. npm i
+3. npm start
+
+or to build
+
+1. npm build
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
