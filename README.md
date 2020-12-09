@@ -1,9 +1,10 @@
 # running locally
-1. clone this repo
-2. npm i
-3. npm start
+1. install node and npm if not present
+2. clone this repo
+3. npm i
+4. npm start
 
-or to build
+# or to build
 
 1. npm build
 
