@@ -6,9 +6,10 @@
 
 # or to build
 
-1. npm build
-
-
+1. install node and npm if not present
+2. clone this repo
+3. npm i
+4. npm build
 
 # Getting Started with Create React App
 
